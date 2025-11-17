@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Organization</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="selectAdd">
+        <select  id="addSelect"></select>
+        <option value="cc"></option>
+
+        <button id="AnnulerSelect" >Annuler</button>
+
+    </div>
+
+
+    <div id="formAjout" class="formAjout">
+        <h2>Ajouter Vehicule</h2>
+                     <div>   
+                        <label >Nom complet *</label>
+                        <input id="nam" >
+                    </div>
+                    <div >
+                        <label >Rôle *</label>
+                        <select name="" id="rols">
+                            <option value="Réceptionniste">Réceptionniste</option>
+                            <option value="Technicien IT">Technicien IT</option>
+                            <option value="Agent de sécurité">Agent de sécurité</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Nettoyage">Nettoyage</option>
+                            <option value="RH">RH</option>
+                            <option value="Comptable">Comptable</option>
+
+                        </select>
+                    </div>
+
+                    <div >
+                        <label >Photo (URL)</label>
+                        <input type="url" id ="img" >
+                    </div>
+                    
+                    <div >
+                        <label >Email *</label>
+                        <input id="email">
+                    </div>
+                    <div >
+                        <label >Téléphone *</label>
+                        <input type="number" id="tele">
+                    </div>
+                    <div>
+                        <h3>Expériences professionnelles</h3>
+                        <div id="Experince">
+                            
+                        </div>
+                        
+                        <div id="experiences">   
+                        <label >company:</label>
+                        <input id="exper" >
+                        <label >role:</label>
+                        <input id="role" >
+                        <label >from:</label>
+                        <input id="from" >
+                        <label >to:</label>
+                        <input id="to" >
+                        <button id="addExp" class="ajouter">Ajouter l'expérience</button>
+
+                    </div>
+
+                    </div>
+                    <div id="btns">
+                        <button id="btnA" >Annuler</button>
+                        <button id="btnV" >Ajouter l'employé</button>    
+                    </div>
+
+    </div>
+
+
+
+
+
+    <div id="employes">
+    
+        <div class="logo">
+      <h1>Workspace </h1> 
+      <h2> Organization</h2> 
+      </div>
+      <button id="AjouterEmploye">+  Ajouter un employé</button>
+      <input placeholder="Rechercher..." type="text">
+      <div id="toutPreso">
+        
+      </div>
+
+
+    </div>
+    <section id="salles">
+        
+        <h1>étage</h1>
+        <div class="salles">
+        
+            <div id="rooms" class="room1">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button id="addSAlle" >+</button>
+                </div>
+                <div class="room">
+                    
+
+                </div>
+
+            </div>
+            <div id="rooms" class="room2">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button>+</button>
+                </div>
+                <div class="room">
+
+                </div>
+
+            </div>
+            <div id="rooms" class="room3">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button>+</button>
+                </div>
+                <div class="room">
+
+                </div>
+
+            </div>
+            <div id="rooms" class="room4">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button>+</button>
+                </div>
+                <div class="room">
+
+                </div>
+
+            </div>
+            <div id="rooms" class="room5">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button>+</button>
+                </div>
+                <div class="room">
+
+                </div>
+
+            </div>
+            <div id="rooms" class="room6">
+                <div class="titele">
+                <h2>Salle de conférence</h2>
+                <button>+</button>
+                </div>
+                <div class="room">
+
+                </div>
+
+            </div>
+            
+        </div>
+        
+        
+        
+
+
+
+    </section>
+    <script src="/script.js"></script>
+</body>
+</html>

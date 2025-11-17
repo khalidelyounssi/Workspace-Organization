@@ -1,1 +1,292 @@
+    *{
+        padding: 0;
+        margin: 0;
+        
+
+    }
+    body{
+        display: flex   ;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #employes{
+        background-color: rgb(255, 255, 255);
+        width: 30%;
+        height: 100vh;
+        display: flex;
+        flex-flow: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
     
+    #employes h1{
+        color: orangered;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+       
+    }
+    #employes h2{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+       
+    }
+    #AjouterEmploye{
+        padding: 10px; 
+        border-radius: 2rem;   
+        border: none;   
+        background-color: rgb(4, 199, 4); 
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 0 15px orangered;
+
+
+       }
+       #employes button:hover{
+        cursor: pointer;
+        box-shadow: 0 0 50px orangered;
+        transition: 1s;
+       }
+        
+    #employes input{
+        padding: 10px; 
+        border-radius: 2rem;        
+    }
+    #salles{
+        width: 100%;
+        height: 100vh;
+        background-color: beige;
+        padding: 1rem;
+
+    }
+     .salles{
+        background:url(/assets/1.png);
+        background-size: cover;
+        background-repeat: no-repeat;   
+        width: 90%;
+        height: 70vh;
+        display: grid;
+        grid-template-columns: 17rem 18rem 13rem auto;
+        grid-template-rows: auto auto auto auto auto auto;
+        gap: rem;
+        margin: 1rem;
+       
+            
+        
+     }
+     .room1{
+       
+        grid-column: 1/2;
+        grid-row: 1/4;
+      
+     }
+     .room2{
+        grid-column: 2/3;
+        grid-row: 1/3;
+         
+     }
+     .room3{
+        grid-column: 3/4;
+        grid-row: 1/3; 
+        
+     }
+     .room4{
+        grid-column: 4/5;
+        grid-row: 1/3;
+         
+     }
+     .room5{
+        grid-column: 1/2;
+        grid-row: 4/7;
+         
+         
+     }
+     .room6{
+        grid-column: 4/5;
+        grid-row: 5/7;
+         
+     }
+
+     .room{
+        background-color: rgba(255, 2, 2, 0.54);
+        width: 100%;
+        height: 70%;
+        border-radius: 1rem;
+
+     }
+
+
+
+
+
+
+
+
+
+     #salles h1 {
+        margin: 1rem;
+        
+        
+     }
+     
+     #rooms{
+        /* background-color:  #f807076c; */
+        padding: 2rem 1rem;
+        border-radius: 1rem;
+        display: flex;
+        justify-items: center;
+        flex-flow: column;
+        gap: 1rem;
+        
+        
+     }
+     .titele{
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.716);
+        border-radius: 2rem;
+        padding: 0.3rem;
+       
+     }
+     .titele h2{
+       color: rgb(9, 9, 9);
+       font-size: medium;
+       
+     }
+
+     .titele button{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-weight: 700;
+        background-color: rgb(4, 199, 4);
+        
+        
+     }
+
+
+     .formAjout{
+    background-color: beige;
+    width: 25rem;
+    max-height: 90vh; 
+    padding: 1rem;
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    border-radius: 0.3rem;
+
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    
+    overflow-y: auto; 
+
+    box-shadow: 0 0 200px rgb(12, 12, 12);
+}
+     .formAjout div{
+        display: flex;
+        flex-flow: column;
+     }
+
+     .formAjout input{
+        height: 1.8rem;
+        border-radius: 0.5rem;
+        border: 1px solid green;
+     }
+     .formAjout select{
+        height: 1.8rem;
+        border-radius: 0.5rem;
+        border: 1px solid green;     }
+     .formAjout button{
+        padding: 10px; 
+        border-radius: 2rem;   
+        border: none;   
+        background-color: rgb(4, 199, 4); 
+        font-weight: 700;
+        color: white;
+     }
+     #btnA{
+        padding: 10px; 
+        border-radius: 2rem;   
+        border: 1px solid green;   
+        background-color: rgb(255, 255, 255); 
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+        
+     }
+     #btns{
+        
+        gap: 1rem;
+     }
+     #experiences{
+        gap: 1rem;
+        background-color: white;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+     }
+    #Experince {
+        background-color: white;
+        margin: 1rem;
+        padding: 0.3rem;
+        border-radius: 0.4rem;
+
+    }
+
+    #closeCard{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 40%;
+        border: none;
+        color: rgb(249, 7, 7);
+        font-weight: 700;
+        
+        margin-top: 1rem;
+
+    }
+    #deletPersonne{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-weight: 700;
+        background-color: rgb(248, 5, 5);
+      
+    }
+
+    .logo{
+    animation: logo 1s infinite; 
+}
+    @keyframes logo {
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-15px); }
+}
+
+#selectAdd {
+    position: absolute;
+    width: 14rem;
+    height: 3rem;
+    background-color: white;
+    display: flex;
+    justify-content: space-between  ;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 0.3rem;
+}
+#addSelect{
+    width: 10rem;
+    border-radius: 0.5rem;
+}
+#AnnulerSelect{
+    padding: 10px; 
+        border-radius: 2rem;   
+        border: 1px solid green;   
+        background-color: rgb(255, 255, 255); 
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+}
