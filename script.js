@@ -23,6 +23,7 @@ const btnAdd = document.querySelectorAll('#btnAdd');
 const annulerBtnSelect = document.querySelectorAll('#AnnulerSelect');
 
 let Employes = [];
+let employeeCards = {};
 
 AjouterEmploye.addEventListener('click', () => {
     formAjout.style.display = 'flex';
@@ -64,6 +65,9 @@ btnV.addEventListener('click', () => {
 
         toutPreso.appendChild(personne);
 
+        const employeeKey = `${personnes.noms}-${personnes.rolss}`;
+        employeeCards[employeeKey] = personne;
+
         personne.addEventListener('click', () => {
             afficherCarte(personnes);
         });
@@ -94,6 +98,9 @@ toutPreso.addEventListener('click', (e) => {
         if (employeeIndex !== -1) {
             Employes.splice(employeeIndex, 1);
         }
+        
+        const employeeKey = `${employeeName}-${employeeRole}`;
+        delete employeeCards[employeeKey];
         
         card.remove();
         updateSelect();
@@ -151,22 +158,27 @@ function afficherCarte(personne) {
 }
 
 function updateSelect() {
-addSelects.forEach((addSelect) => {
-    addSelect.innerHTML = '';
-    
-    const defaultOption = document.createElement('option');
-    defaultOption.value = "";
-    defaultOption.textContent = "employes";
-    addSelect.appendChild(defaultOption);
-    
-    Employes.forEach((employee, index) => {
-        const opt = document.createElement('option');
-        opt.value = index;
-        opt.textContent = `${employee.noms} - ${employee.rolss}`;
-        addSelect.appendChild(opt);
+    addSelects.forEach((addSelect) => {
+        addSelect.innerHTML = '';
+        
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "employes";
+        addSelect.appendChild(defaultOption);
+        
+        Employes.forEach((employee, index) => {
+            const employeeKey = `${employee.noms}-${employee.rolss}`;
+            
+            if (employeeCards[employeeKey] && employeeCards[employeeKey].style.display !== 'none') {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.textContent = `${employee.noms} - ${employee.rolss}`;
+                addSelect.appendChild(opt);
+            }
+        });
     });
-})
 }
+
 btnAdd.forEach((btn)=>{
     btn.addEventListener('click',(e)=>{
         const room = e.target.closest('[id="rooms"]');
@@ -198,6 +210,11 @@ addSelects.forEach((select) => {
             
             if (room) {
                 const roomContent = room.querySelector('.room');
+                const employeeKey = `${employee.noms}-${employee.rolss}`;
+                
+                if (employeeCards[employeeKey]) {
+                    employeeCards[employeeKey].style.display = 'none';
+                }
                 
                 const employeeCard = document.createElement('div');
                 employeeCard.className = 'per';
@@ -216,17 +233,17 @@ addSelects.forEach((select) => {
                 employeeCard.style.display = "flex";
                 employeeCard.style.justifyContent = "space-between";
 
-                roomContent.appendChild(employeeCard);
+                employeeCard.setAttribute('data-employee-key', employeeKey);
 
-                employeeCard.addEventListener('click', () => {
-                    afficherCarte(employee);
-                });
+                roomContent.appendChild(employeeCard);
 
                 const selectAdd = e.target.closest('#selectAdd');
                 if (selectAdd) {
                     selectAdd.style.display = 'none';
                 }
                 e.target.value = "";
+                
+                updateSelect();
             }
         }
     });
@@ -235,7 +252,16 @@ addSelects.forEach((select) => {
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('deletFromRoom')) {
         e.stopPropagation();
-        e.target.parentElement.remove();
+        const employeeCard = e.target.parentElement;
+        const employeeKey = employeeCard.getAttribute('data-employee-key');
+        
+        employeeCard.remove();
+        
+        if (employeeCards[employeeKey]) {
+            employeeCards[employeeKey].style.display = 'flex';
+        }
+        
+        updateSelect();
     }
 });
 
