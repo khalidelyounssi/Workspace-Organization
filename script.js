@@ -10,11 +10,17 @@ const tele = document.getElementById('tele');
 const toutPreso = document.getElementById('toutPreso');
 const addExp = document.getElementById('addExp');
 const expers = document.getElementById('exper');
+const role = document.getElementById('role');
+const from = document.getElementById('from');
+const to = document.getElementById('to');
 const Experince = document.getElementById('Experince');
 const Sconference = document.querySelector('.Sconference');
 const per = document.querySelector('.per');
-const addSAlle = document.getElementById('addSAlle');
-const addSelect = document.getElementById('addSelect');
+const addSelects = document.querySelectorAll('#addSelect');
+const btnSAlles = document.querySelectorAll('#addSAlle')
+const selectAdd = document.querySelectorAll('#selectAdd');
+const btnAdd = document.querySelectorAll('#btnAdd');
+const annulerBtnSelect = document.querySelectorAll('#AnnulerSelect');
 
 let Employes = [];
 
@@ -102,7 +108,10 @@ toutPreso.addEventListener('click', (e) => {
 addExp.addEventListener('click', () => {
     if (expers.value) {
         const experies = document.createElement('h4');
-        experies.innerText = `${expers.value}`;
+        experies.innerText = ` company : ${expers.value} 
+        role :${role.value}
+        from : ${from.value}
+        to :${to.value}`;
         Experince.appendChild(experies);
         expers.value = '';
     }
@@ -142,6 +151,7 @@ function afficherCarte(personne) {
 }
 
 function updateSelect() {
+addSelects.forEach((addSelect) => {
     addSelect.innerHTML = '';
     
     const defaultOption = document.createElement('option');
@@ -155,6 +165,78 @@ function updateSelect() {
         opt.textContent = `${employee.noms} - ${employee.rolss}`;
         addSelect.appendChild(opt);
     });
+})
 }
+btnAdd.forEach((btn)=>{
+    btn.addEventListener('click',(e)=>{
+        const room = e.target.closest('[id="rooms"]');
+        if (room) {
+            const selectInThisRoom = room.querySelector('#selectAdd');
+            if (selectInThisRoom) {
+                selectInThisRoom.style.display='flex';
+            }
+        }
+    });
+});
+
+annulerBtnSelect.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        const selectAdd = e.target.closest('#selectAdd');
+        if (selectAdd) {
+            selectAdd.style.display = 'none';
+        }
+    });
+});
+
+addSelects.forEach((select) => {
+    select.addEventListener('change', (e) => {
+        const selectedIndex = e.target.value;
+        
+        if (selectedIndex !== "") {
+            const employee = Employes[selectedIndex];
+            const room = e.target.closest('[id="rooms"]');
+            
+            if (room) {
+                const roomContent = room.querySelector('.room');
+                
+                const employeeCard = document.createElement('div');
+                employeeCard.className = 'per';
+                employeeCard.innerHTML = `
+                    <div>
+                        <h3>${employee.noms}</h3>
+                        <p>${employee.rolss}</p>
+                    </div>
+                    <button class="deletFromRoom">✖</button>
+                `;
+
+                employeeCard.style.backgroundColor = "beige";
+                employeeCard.style.borderRadius = "0.4rem";
+                employeeCard.style.padding = "0.5rem";
+                employeeCard.style.gap = "0.2rem";
+                employeeCard.style.display = "flex";
+                employeeCard.style.justifyContent = "space-between";
+
+                roomContent.appendChild(employeeCard);
+
+                employeeCard.addEventListener('click', () => {
+                    afficherCarte(employee);
+                });
+
+                const selectAdd = e.target.closest('#selectAdd');
+                if (selectAdd) {
+                    selectAdd.style.display = 'none';
+                }
+                e.target.value = "";
+            }
+        }
+    });
+});
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('deletFromRoom')) {
+        e.stopPropagation();
+        e.target.parentElement.remove();
+    }
+});
 
 updateSelect();
