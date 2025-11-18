@@ -34,7 +34,12 @@ btnA.addEventListener('click', () => {
 });
 
 btnV.addEventListener('click', () => {
-    if (nam.value) {
+        if (nam.value === "" || rols.value === "" || email.value === "" || tele.value === "") {
+        alert("Veuillez remplir tous les champs obligatoires");
+        return; 
+    }
+
+  
         let personnes = {
             noms: nam.value,
             rolss: rols.value,
@@ -81,7 +86,7 @@ btnV.addEventListener('click', () => {
         tele.value = '';
         Experince.innerHTML = '';
         formAjout.style.display = 'none';
-    }
+    
 });
 
 toutPreso.addEventListener('click', (e) => {
