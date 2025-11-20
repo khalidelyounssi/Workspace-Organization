@@ -52,11 +52,14 @@ btnV.addEventListener('click', () => {
         Employes.push(personnes);
 
         const personne = document.createElement('div');
-        personne.className = 'per';
+        personne.className = 'person';
         personne.innerHTML = `
-            <div>
+            <div class="divPersonne">
+                <img src="${personnes.imgs}" alt="">
+            <div class='titlePersonne'>
                 <h3>${personnes.noms}</h3>
                 <p>${personnes.rolss}</p>
+                </div>
             </div>
             <button id="deletPersonne">✖</button>
         `;
@@ -67,6 +70,7 @@ btnV.addEventListener('click', () => {
         personne.style.gap = "0.2rem";
         personne.style.display = "flex";
         personne.style.justifyContent = "space-between";
+        personne.style.alignItems = 'center';
 
         toutPreso.appendChild(personne);
 
@@ -204,53 +208,52 @@ annulerBtnSelect.forEach((btn) => {
         }
     });
 });
+addSelects.forEach(select => {
+    select.addEventListener('change', e => {
+        const index = e.target.value;
+        if (index === "") return;
 
-addSelects.forEach((select) => {
-    select.addEventListener('change', (e) => {
-        const selectedIndex = e.target.value;
-        
-        if (selectedIndex !== "") {
-            const employee = Employes[selectedIndex];
-            const room = e.target.closest('[id="rooms"]');
-            
-            if (room) {
-                const roomContent = room.querySelector('.room');
-                const employeeKey = `${employee.noms}-${employee.rolss}`;
-                
-                if (employeeCards[employeeKey]) {
-                    employeeCards[employeeKey].style.display = 'none';
-                }
-                
-                const employeeCard = document.createElement('div');
-                employeeCard.className = 'per';
-                employeeCard.innerHTML = `
-                    <div>
-                        <h3>${employee.noms}</h3>
-                        <p>${employee.rolss}</p>
-                    </div>
-                    <button class="deletFromRoom">✖</button>
-                `;
+        const employee = Employes[index];
+        const employeeKey = `${employee.noms}-${employee.rolss}`;
 
-                employeeCard.style.backgroundColor = "beige";
-                employeeCard.style.borderRadius = "0.4rem";
-                employeeCard.style.padding = "0.5rem";
-                employeeCard.style.gap = "0.2rem";
-                employeeCard.style.display = "flex";
-                employeeCard.style.justifyContent = "space-between";
+        const room = e.target.closest('#rooms');
+        if (!room) return;
 
-                employeeCard.setAttribute('data-employee-key', employeeKey);
+        const roomContent = room.querySelector('.room');
 
-                roomContent.appendChild(employeeCard);
-
-                const selectAdd = e.target.closest('#selectAdd');
-                if (selectAdd) {
-                    selectAdd.style.display = 'none';
-                }
-                e.target.value = "";
-                
-                updateSelect();
-            }
+        if (employeeCards[employeeKey]) {
+            employeeCards[employeeKey].style.display = "none";
         }
+
+        const card = document.createElement('div');
+        card.className = "per";
+        card.setAttribute("data-employee-key", employeeKey);
+
+        card.innerHTML = `
+            <div>
+                <h3>${employee.noms}</h3>
+                <p>${employee.rolss}</p>
+            </div>
+            <button class="deletFromRoom">✖</button>
+        `;
+
+        Object.assign(card.style, {
+            backgroundColor: "beige",
+            borderRadius: "0.4rem",
+            padding: "0.5rem",
+            gap: "0.2rem",
+            display: "flex",
+            justifyContent: "space-between"
+        });
+
+        roomContent.appendChild(card);
+
+        const selectAdd = e.target.closest('#selectAdd');
+        if (selectAdd) selectAdd.style.display = "none";
+
+        e.target.value = "";
+
+        updateSelect();
     });
 });
 
