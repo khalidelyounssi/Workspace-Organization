@@ -25,6 +25,32 @@ const annulerBtnSelect = document.querySelectorAll('#AnnulerSelect');
 let Employes = [];
 let employeeCards = {};
 
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validatePhone(phone) {
+    return /^[0-9+\-\s()]{10,}$/.test(phone);
+}
+
+const roomRestrictions = {
+    'Salle de conférence': ['Manager', 'Nettoyage', 'RH', 'Comptable', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité'],
+    'Réception': ['Réceptionniste'],
+    'Salle des serveurs': ['Technicien IT'],
+    'Salle de sécurité': ['Agent de sécurité'],
+    'Salle du personnel': ['Manager', 'Nettoyage', 'RH', 'Comptable', 'Réceptionniste', 'Technicien IT', 'Agent de sécurité'],
+    'Salle d\'archives': ['Manager', 'RH', 'Comptable']
+};
+
+function canEmployeeWorkInRoom(employeeRole, roomName) {
+    return roomRestrictions[roomName].includes(employeeRole);
+}
+
+
+
+
+
 AjouterEmploye.addEventListener('click', () => {
     formAjout.style.display = 'flex';
 });
@@ -34,11 +60,21 @@ btnA.addEventListener('click', () => {
 });
 
 btnV.addEventListener('click', () => {
+     email.style.border = '';
+    tele.style.border = '';
         if (nam.value === "" || rols.value === "" || email.value === "" || tele.value === "") {
         alert("Veuillez remplir tous les champs obligatoires");
         return; 
     }
+    if (!validateEmail(email.value)) {
+        email.style.border='2px solid red'
+    return;
+}
 
+if (!validatePhone(tele.value)) {
+        tele.style.border='2px solid red'
+    return;
+}
   
         let personnes = {
             noms: nam.value,
@@ -174,11 +210,16 @@ function updateSelect() {
         defaultOption.value = "";
         defaultOption.textContent = "employes";
         addSelect.appendChild(defaultOption);
+
+         const room = addSelect.closest('#rooms');
+        const roomName = room.querySelector('h2').textContent;
         
         Employes.forEach((employee, index) => {
             const employeeKey = `${employee.noms}-${employee.rolss}`;
             
-            if (employeeCards[employeeKey] && employeeCards[employeeKey].style.display !== 'none') {
+            if (employeeCards[employeeKey] && 
+                employeeCards[employeeKey].style.display !== 'none' &&
+                canEmployeeWorkInRoom(employee.rolss, roomName)) {
                 const opt = document.createElement('option');
                 opt.value = index;
                 opt.textContent = `${employee.noms} - ${employee.rolss}`;
@@ -186,6 +227,7 @@ function updateSelect() {
             }
         });
     });
+    animation();
 }
 
 btnAdd.forEach((btn)=>{
@@ -218,11 +260,16 @@ addSelects.forEach(select => {
 
         const room = e.target.closest('#rooms');
         if (!room) return;
-
+        const roomName = room.querySelector('h2').textContent;
         const roomContent = room.querySelector('.room');
 
         if (employeeCards[employeeKey]) {
             employeeCards[employeeKey].style.display = "none";
+        }
+        if (!canEmployeeWorkInRoom(employee.rolss, roomName)) {
+            alert(`les ${employee.rolss} il no pas autorise`);
+            e.target.value = "";
+            return;
         }
 
         const card = document.createElement('div');
@@ -254,6 +301,7 @@ addSelects.forEach(select => {
         e.target.value = "";
 
         updateSelect();
+        animation();
     });
 });
 
@@ -272,5 +320,30 @@ document.addEventListener('click', (e) => {
         updateSelect();
     }
 });
+
+
+    function animation() {
+         const allRooms = document.querySelectorAll('#rooms');
+    
+    const AniRooms = ['Réception', 'Salle des serveurs', 'Salle de sécurité', 'Salle d\'archives'];
+    
+    allRooms.forEach(room => {
+        const title = room.querySelector('.titele'); 
+        const roomContent = room.querySelector('.room');
+        const roomName = room.querySelector('h2').textContent;
+        
+        const ThisRoom = AniRooms.includes(roomName);
+        
+        if (title && roomContent && ThisRoom) {
+            const Empty = roomContent.children.length === 0;
+            
+            if (Empty) {
+                title.style.animation = 'glow 1s infinite alternate';
+            } else {
+                title.style.animation = 'none';
+            }
+        }
+    });
+}
 
 updateSelect();
