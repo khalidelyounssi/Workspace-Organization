@@ -63,7 +63,7 @@
 
     }
      .salles{
-        background:url('/assets/1.png');
+        background:url('./assets/1.png');
         background-size:100% 100%;
         background-repeat: no-repeat; 
         background-position: center;  
@@ -447,7 +447,7 @@
 
     }
      .salles{
-        background:url(/assets/2.png);
+        background:url(./assets/4tnuSf7FRcSewVNiOTU5UA.webp);
         background-size:100% 100%;
         background-repeat: no-repeat; 
         background-position: center;  
