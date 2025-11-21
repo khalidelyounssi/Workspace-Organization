@@ -210,12 +210,12 @@
     flex-flow: column;
     gap: 1rem;
     border-radius: 0.3rem;
-
-    position: fixed; 
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    margin-top: 2rem;
     
     overflow-y: auto; 
 

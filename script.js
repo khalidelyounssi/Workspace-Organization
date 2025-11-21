@@ -44,6 +44,16 @@ const roomRestrictions = {
     'Salle d\'archives': ['Manager', 'RH', 'Comptable']
 };
 
+const roomLimet = {
+    'Salle de conférence':7,
+    'Réception': 2,
+    'Salle des serveurs': 4,
+    'Salle de sécurité':2,
+    'Salle du personnel':2,
+    'Salle d\'archives':2,
+};
+
+
 function canEmployeeWorkInRoom(employeeRole, roomName) {
     return roomRestrictions[roomName].includes(employeeRole);
 }
@@ -61,74 +71,80 @@ btnA.addEventListener('click', () => {
 });
 
 btnV.addEventListener('click', () => {
-     email.style.border = '';
+
+
+    email.style.border = '';
     tele.style.border = '';
-        if (nam.value === "" || rols.value === "" || email.value === "" || tele.value === "") {
+
+    if (nam.value === "" || rols.value === "" || email.value === "" || tele.value === "") {
         alert("Veuillez remplir tous les champs obligatoires");
         return; 
     }
+
     if (!validateEmail(email.value)) {
-        email.style.border='2px solid red'
-    return;
-}
+        email.style.border = '2px solid red';
+        return;
+    }
 
-if (!validatePhone(tele.value)) {
-        tele.style.border='2px solid red'
-    return;
-}
-  
-        let personnes = {
-            noms: nam.value,
-            rolss: rols.value,
-            imgs: img.value,
-            emails: email.value,
-            teles: tele.value,
-            Experinces: Experince.textContent
-        };
+    if (!validatePhone(tele.value)) {
+        tele.style.border = '2px solid red';
+        return;
+    }
 
-        Employes.push(personnes);
+    let personnes = {
+        noms: nam.value,
+        rolss: rols.value,
+        imgs: img.value,
+        emails: email.value,
+        teles: tele.value,
+        Experinces: Experince.textContent
+    };
 
-        const personne = document.createElement('div');
-        personne.className = 'person';
-        personne.innerHTML = `
-            <div class="divPersonne">
-                <img src="${personnes.imgs}" alt="">
+    Employes.push(personnes);
+
+    const personne = document.createElement('div');
+    personne.className = 'person';
+    personne.innerHTML = `
+        <div class="divPersonne">
+            <img src="${personnes.imgs}" alt="">
             <div class='titlePersonne'>
                 <h3>${personnes.noms}</h3>
                 <p>${personnes.rolss}</p>
-                </div>
             </div>
-            <button id="deletPersonne">✖</button>
-        `;
+        </div>
+        <button id="deletPersonne">✖</button>
+    `;
 
-        personne.style.backgroundColor = "beige";
-        personne.style.borderRadius = "0.4rem";
-        personne.style.padding = "0.5rem";
-        personne.style.gap = "0.2rem";
-        personne.style.display = "flex";
-        personne.style.justifyContent = "space-between";
-        personne.style.alignItems = 'center';
+    Object.assign(personne.style, {
+        backgroundColor: "beige",
+        borderRadius: "0.4rem",
+        padding: "0.5rem",
+        gap: "0.2rem",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+    });
 
-        toutPreso.appendChild(personne);
+    toutPreso.appendChild(personne);
 
-        const employeeKey = `${personnes.noms}-${personnes.rolss}`;
-        employeeCards[employeeKey] = personne;
+    const employeeKey = `${personnes.noms}-${personnes.rolss}`;
+    employeeCards[employeeKey] = personne;
 
-        personne.addEventListener('click', () => {
-            afficherCarte(personnes);
-        });
+    personne.addEventListener('click', () => {
+        afficherCarte(personnes);
+    });
 
-        updateSelect();
-        
-        nam.value = '';
-        rols.value = '';
-        img.value = '';
-        email.value = '';
-        tele.value = '';
-        Experince.innerHTML = '';
-        formAjout.style.display = 'none';
-    
+    updateSelect();
+
+    nam.value = '';
+    rols.value = '';
+    img.value = '';
+    email.value = '';
+    tele.value = '';
+    Experince.innerHTML = '';
+    formAjout.style.display = 'none'          
 });
+
 
 toutPreso.addEventListener('click', (e) => {
     if (e.target.id === 'deletPersonne') {
@@ -234,11 +250,22 @@ function updateSelect() {
 btnAdd.forEach((btn)=>{
     btn.addEventListener('click',(e)=>{
         const room = e.target.closest('[id="rooms"]');
-        if (room) {
-            const selectInThisRoom = room.querySelector('#selectAdd');
-            if (selectInThisRoom) {
-                selectInThisRoom.style.display='flex';
-            }
+        if (!room) return;
+
+        const roomName = room.querySelector('h2').textContent;
+        const roomContent = room.querySelector('.room');
+
+        const roomLimit = roomLimet[roomName];
+        const currentCount = roomContent.querySelectorAll('.per').length;
+
+        if (currentCount >= roomLimit) {
+            alert(` La room est pleine !`);
+            return;   
+        }
+
+        const selectInThisRoom = room.querySelector('#selectAdd');
+        if (selectInThisRoom) {
+            selectInThisRoom.style.display = 'flex';
         }
     });
 });
@@ -358,7 +385,7 @@ Rechercher.addEventListener('keyup', () => {
         const name = emp.querySelector('h3').textContent.toLowerCase();
         const role = emp.querySelector('p').textContent.toLowerCase();
         
-        if (name.includes(searchText) || role.includes(searchText)) {
+            if (name.includes(searchText) || role.includes(searchText)) {
             emp.style.display = 'flex';
         } else {
             emp.style.display = 'none';
