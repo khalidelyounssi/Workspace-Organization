@@ -137,10 +137,11 @@
 
 
      #salles h1 {
-        margin: rem;
         background-color: white;
         width: 90%;
         padding: 1rem;
+        border-radius: 2rem;
+
         
      }
      
@@ -183,6 +184,7 @@
      .titele h2{
        color: rgb(9, 9, 9);
        font-size: medium;
+      
        
      }
 
@@ -360,6 +362,8 @@
     flex-flow: column;
     justify-content: center;
 }
+
+
 
 @media (min-width:1024px) and (max-width:1280px) {
     

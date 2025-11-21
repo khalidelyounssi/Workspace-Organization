@@ -21,6 +21,7 @@ const btnSAlles = document.querySelectorAll('#addSAlle')
 const selectAdd = document.querySelectorAll('#selectAdd');
 const btnAdd = document.querySelectorAll('#btnAdd');
 const annulerBtnSelect = document.querySelectorAll('#AnnulerSelect');
+const Rechercher = document.getElementById('Rechercher')
 
 let Employes = [];
 let employeeCards = {};
@@ -345,5 +346,24 @@ document.addEventListener('click', (e) => {
         }
     });
 }
+
+
+
+Rechercher.addEventListener('keyup', () => {
+    const searchText = Rechercher.value.toLowerCase().trim();
+    
+    const employees = toutPreso.querySelectorAll('.person');
+    
+    employees.forEach(emp => {
+        const name = emp.querySelector('h3').textContent.toLowerCase();
+        const role = emp.querySelector('p').textContent.toLowerCase();
+        
+        if (name.includes(searchText) || role.includes(searchText)) {
+            emp.style.display = 'flex';
+        } else {
+            emp.style.display = 'none';
+        }
+    });
+});
 
 updateSelect();
